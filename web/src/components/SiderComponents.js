@@ -10,58 +10,31 @@ import {
 } from "@ant-design/icons";
 import { Row, Col } from "antd";
 import Logo from "../assert/eco.jpg";
-const SiderComponents = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [breakPointState, setBreakPointState] = useState(false);
-  const [screenWidth, setScreenWidth] = useState(1000);
+const SiderComponents = ({ collapsed, screenWidth, setBreakPointState }) => {
   const { Sider } = Layout;
   const { SubMenu } = Menu;
-  const DemoBox = (props) => (
-    <p className={`height-${props.value}`}>{props.children}</p>
-  );
-
-  const toggle = () => {
-    setCollapsed((prevState) => !prevState);
-  };
-  const handleResize = () => {
-    setScreenWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    breakPointState ? setCollapsed(true) : setCollapsed(false);
-  }, [breakPointState]);
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-  }, []);
 
   return (
     <Sider
-      style={{
-        overflow: "auto",
-        height: "100vh",
-        position: "fixed",
-        left: 0,
-        top: 0,
-        bottom: 0,
-      }}
       trigger={null}
       collapsible
       collapsed={collapsed}
-      collapsedWidth={screenWidth < 480 ? 0 : 80}
-      //onCollapse={onCollapse}
       breakpoint="lg"
+      collapsedWidth={screenWidth < 480 ? 0 : 80}
       onBreakpoint={(broken) => {
         setBreakPointState(broken);
       }}
+      className="sider"
     >
       <div className="logo" />
+
       <Row justify="center" align="top">
         <Col style={{ margin: 18 }}>
-          <Avatar
-            size={{ xs: 50, sm: 52, md: 57, lg: 64, xl: 80, xxl: 100 }}
-            src={Logo}
-          />
+          {!collapsed ? (
+            <Avatar size={screenWidth / 15} src={Logo} />
+          ) : (
+            <Avatar size={screenWidth / 25} src={Logo} />
+          )}
         </Col>
       </Row>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={["4"]}>

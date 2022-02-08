@@ -4,11 +4,9 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
-    OneToOne,
+    ManyToOne,
     JoinColumn
   } from "typeorm";
-
-  
 import { Users } from "./UserEntities";
   
   @Entity()
@@ -32,7 +30,11 @@ import { Users } from "./UserEntities";
     @UpdateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)", onUpdate: "CURRENT_TIMESTAMP(6)" })
     update_roles: Date;
 
-    @OneToOne(() => Users, users => users.roles)
-    @JoinColumn({name: "id_users"})
+    // @OneToOne(() => Users, users => users.roles)
+    // @JoinColumn({name: "id_users"})
+    // users: Users;
+
+    @ManyToOne(() => Users, users => users.roles)
+    @JoinColumn({name: "id_users"}) 
     users: Users;
   }

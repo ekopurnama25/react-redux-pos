@@ -4,10 +4,10 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
-    OneToOne,
-    JoinColumn
+    // OneToOne,
+    // JoinColumn
   } from "typeorm";
-import { Users } from "./UserEntities";
+//import { Users } from "./UserEntities";
   
 @Entity()
 export class Token {
@@ -29,7 +29,7 @@ export class Token {
   @UpdateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)", onUpdate: "CURRENT_TIMESTAMP(6)" })
   update_token: Date;
 
-  @OneToOne(() => Users, users => users.token)
-  @JoinColumn({name: "id_users"})
-  users: Users;
+  // @OneToOne(() => Users, users => users.token)
+  // @JoinColumn({name: "id_users"})
+  // users: Users;
 }

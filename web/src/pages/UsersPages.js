@@ -6,19 +6,12 @@ import TableUsersComponents from "../components/TableUsersComponent";
 import DrawerUsersComponents from "../components/DrawerUsersComponents";
 const { Content } = Layout;
 
-const UsersPages = () => {
-  const [visible, setVisible] = useState(false);
-  const [size, setSize] = useState();
+const UsersPages = ({ visible, size }) => {
   const { users } = useSelector((state) => state.listUsers);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-
-  const showLargeDrawer = () => {
-    setSize("large");
-    setVisible(true);
-  };
 
   return (
     <Content
@@ -32,12 +25,11 @@ const UsersPages = () => {
         <Row>
           <Col span={24}>
             <Card title="Users Account">
-              <Space>
-                <Button type="primary" onClick={showLargeDrawer}>
-                  Add Users
-                </Button>
-              </Space>
-              <DrawerUsersComponents />
+              <Row justify="end">
+                <Col style={{ marginBottom: 15 }}>
+                  <DrawerUsersComponents visible={visible} size={size} />
+                </Col>
+              </Row>
               <TableUsersComponents data={users} />
             </Card>
           </Col>

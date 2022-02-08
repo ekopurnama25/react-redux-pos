@@ -19,7 +19,7 @@ app.use(cookie_parser_1.default());
 app.use(Express.json());
 app.use('/api', UserRouter_1.default);
 app.use('/api', AuthRouter_1.default);
-app.listen(4000, () => {
+app.listen(5000, () => {
     try {
         console.log("Server Is Connection");
     }

@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Button, Typography, Row, Col } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
 import { getKeyData } from "../utils/getKeyData";
+import { deleteUsers } from "../store/actions/usersactions";
+
+import { useDispatch } from "react-redux";
 
 const { Text } = Typography;
 
@@ -29,13 +32,14 @@ const TableUsersComponents = ({ data }) => {
       sorter: (a, b) => a.age - b.age,
       render: (roles) => {
         //const StatusUsers = "Eneble";
+        //console.log({ id_users });
         return <Text type="danger">{roles?.status}</Text>;
       },
     },
     {
       title: "Action",
-      dataIndex: "action",
-      render: () => {
+      dataIndex: "roles",
+      render: (roles) => {
         return (
           <>
             <Row style={{ margin: 20 }}>
@@ -45,7 +49,13 @@ const TableUsersComponents = ({ data }) => {
                 </Button>
               </Col>
               <Col span={10}>
-                <Button type="danger" icon={<DeleteFilled />}>
+                <Button
+                  type="danger"
+                  icon={<DeleteFilled />}
+                  onClick={(e) => {
+                    DeleteUsers(e, roles.id);
+                  }}
+                >
                   Delete
                 </Button>
               </Col>
@@ -57,6 +67,15 @@ const TableUsersComponents = ({ data }) => {
   ];
 
   const dataModified = getKeyData(data);
+  const dispatch = useDispatch();
+  const DeleteUsers = (e, id) => {
+    e.preventDefault();
+    try {
+      dispatch(deleteUsers(id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   function onChange(pagination, filters, sorter, extra) {
     console.log("params", pagination, filters, sorter, extra);

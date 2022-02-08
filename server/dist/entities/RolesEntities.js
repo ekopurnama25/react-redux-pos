@@ -39,7 +39,7 @@ __decorate([
     __metadata("design:type", Date)
 ], Roles.prototype, "update_roles", void 0);
 __decorate([
-    typeorm_1.OneToOne(() => UserEntities_1.Users, users => users.roles),
+    typeorm_1.ManyToOne(() => UserEntities_1.Users, users => users.roles),
     typeorm_1.JoinColumn({ name: "id_users" }),
     __metadata("design:type", UserEntities_1.Users)
 ], Roles.prototype, "users", void 0);

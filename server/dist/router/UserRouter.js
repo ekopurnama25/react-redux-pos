@@ -7,5 +7,7 @@ const UsersServices_1 = __importDefault(require("../service/UsersServices"));
 const router = require("express").Router();
 router.post('/users/', UsersServices_1.default.registrasiUsers);
 router.get('/users/', UsersServices_1.default.getAllUsers);
+router.post('/create/', UsersServices_1.default.CreateUsers);
+router.delete("/users/:id", UsersServices_1.default.DeleteUsers);
 exports.default = router;
 //# sourceMappingURL=UserRouter.js.map

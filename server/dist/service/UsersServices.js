@@ -69,14 +69,98 @@ UserServices.registrasiUsers = (req, res) => __awaiter(void 0, void 0, void 0, f
 });
 UserServices.getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const getUsers = yield typeorm_1.getRepository(UserEntities_1.Users)
-        .createQueryBuilder('users')
-        .leftJoinAndSelect("users.roles", "roles").getMany();
+        .createQueryBuilder('us')
+        .innerJoinAndSelect("us.roles", "rl").getMany();
     if (getUsers) {
         res.status(200).json({
             status: true,
             message: "success",
             data: {
-                data: getUsers
+                data: getUsers,
+            }
+        });
+    }
+    else {
+        res.status(400).json({
+            status: false,
+            message: "Users Can't Be Found"
+        });
+    }
+});
+UserServices.CreateUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = new UserEntities_1.Users();
+    user.username = req.body.username;
+    user.email = req.body.email;
+    user.password = yield argon2_1.default.hash(req.body.password);
+    if (!user) {
+        res.status(500).json({
+            status: false,
+            message: "The filling form must be filled out"
+        });
+    }
+    else if (!user.username) {
+        res.status(500).json({
+            status: false,
+            message: "Username cannot be empty"
+        });
+    }
+    else if (!user.email) {
+        res.status(500).json({
+            status: false,
+            message: "Email cannot be empty"
+        });
+    }
+    else if (!user.password) {
+        res.status(500).json({
+            status: false,
+            message: "Password cannot be empty"
+        });
+    }
+    else {
+        try {
+            const ResultRegis = yield typeorm_1.getRepository(UserEntities_1.Users).save(user);
+            if (ResultRegis) {
+                const roles = new RolesEntities_1.Roles();
+                roles.id_users = ResultRegis.id_users,
+                    roles.roles = req.body.roles,
+                    roles.status = req.body.status,
+                    yield typeorm_1.getRepository(RolesEntities_1.Roles).save(roles);
+            }
+            res.status(201).json({ users: ResultRegis });
+        }
+        catch (err) {
+            console.log(err);
+            res.status(401).json({
+                status: false,
+                message: "Users Can't Be Found"
+            });
+        }
+    }
+});
+UserServices.DeleteUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    new RolesEntities_1.Roles();
+    const id = req.params.id;
+    console.log(id);
+    const delUsers = yield typeorm_1.getRepository(RolesEntities_1.Roles)
+        .createQueryBuilder()
+        .delete()
+        .from(RolesEntities_1.Roles)
+        .where("id_users = :id_users", { id_users: id })
+        .execute();
+    if (delUsers) {
+        new UserEntities_1.Users();
+        yield typeorm_1.getRepository(UserEntities_1.Users)
+            .createQueryBuilder()
+            .delete()
+            .from(UserEntities_1.Users)
+            .where("id_users = :id_users", { id_users: id })
+            .execute();
+        res.status(200).json({
+            status: true,
+            message: "success",
+            data: {
+                message: "success Delete Users",
+                id: id
             }
         });
     }

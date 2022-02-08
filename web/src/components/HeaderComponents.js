@@ -1,22 +1,35 @@
 import React from "react";
 import { Layout, Avatar, Col } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+} from "@ant-design/icons";
 import { Row } from "antd";
 import { Typography } from "antd";
 
-const HeaderComponents = () => {
+const HeaderComponents = ({ collapsed, toggle }) => {
   const { Header } = Layout;
   const { Title } = Typography;
   return (
     <Header
-      className="site-layout-background"
+      className="site-layout-background header"
       style={{ padding: 0, background: "#f0f2f5" }}
     >
       <Row style={{ margin: 20 }}>
         <Col span={12} justify="start">
-          <Title level={4} style={{ color: "#85a5ff" }}>
-            Dashboard
-          </Title>
+          <Row>
+            {React.createElement(
+              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+              {
+                className: "trigger",
+                onClick: toggle,
+              }
+            )}
+            <Title level={4} style={{ color: "#85a5ff" }}>
+              Dashboard
+            </Title>
+          </Row>
         </Col>
         <Col span={12}>
           <Row justify="end">

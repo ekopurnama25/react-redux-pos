@@ -4,10 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
+  OneToMany,
 } from "typeorm";
 import { Roles } from "./RolesEntities";
-import { Token } from "./TokenEntities";
+// import { Token } from "./TokenEntities";
 
 @Entity()
 export class Users {
@@ -29,9 +29,9 @@ export class Users {
   @UpdateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)", onUpdate: "CURRENT_TIMESTAMP(6)" })
   update_users: Date;
 
-  @OneToOne(() => Token, token => token.users) 
-  token: Token;
+  // @OneToOne(() => Token, token => token.users) 
+  // token: Token;
 
-  @OneToOne(() => Roles, roles => roles.users) 
-  roles: Roles;
+  @OneToMany(() => Roles, roles => roles.users) 
+  roles: Roles[]; 
 }

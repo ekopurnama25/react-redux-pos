@@ -1,4 +1,4 @@
-import { get_users } from "../constans/usersconstant";
+import { get_users, add_users, delete_users } from "../constans/usersconstant";
 
 const defaultState = {
   users: [],
@@ -13,6 +13,13 @@ const UsersReducers = (state = defaultState, action) => {
         ...state,
         users: newUSers,
       };
+
+    case add_users:
+      return { ...state, users: newUSers.users };
+
+    case delete_users:
+      return { ...state, users: newUSers.users };
+
     default:
       return state;
   }

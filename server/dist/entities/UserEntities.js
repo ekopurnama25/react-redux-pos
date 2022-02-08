@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Users = void 0;
 const typeorm_1 = require("typeorm");
 const RolesEntities_1 = require("./RolesEntities");
-const TokenEntities_1 = require("./TokenEntities");
 let Users = class Users {
 };
 __decorate([
@@ -40,12 +39,8 @@ __decorate([
     __metadata("design:type", Date)
 ], Users.prototype, "update_users", void 0);
 __decorate([
-    typeorm_1.OneToOne(() => TokenEntities_1.Token, token => token.users),
-    __metadata("design:type", TokenEntities_1.Token)
-], Users.prototype, "token", void 0);
-__decorate([
-    typeorm_1.OneToOne(() => RolesEntities_1.Roles, roles => roles.users),
-    __metadata("design:type", RolesEntities_1.Roles)
+    typeorm_1.OneToMany(() => RolesEntities_1.Roles, roles => roles.users),
+    __metadata("design:type", Array)
 ], Users.prototype, "roles", void 0);
 Users = __decorate([
     typeorm_1.Entity()
