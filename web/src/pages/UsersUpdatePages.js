@@ -1,20 +1,22 @@
 import React, { useEffect } from "react";
-import { Layout, Row, Col, Card } from "antd";
+import { Layout, Row, Col, Card, Button, Space } from "antd";
+import FormUpdateUsers from "../components/FormUpdateUsers";
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers } from "../store/actions/usersactions";
-import TableUsersComponents from "../components/TableUsersComponent";
-import DrawerUsersComponents from "../components/DrawerUsersComponents";
+import { getIdUsers } from "../store/actions/usersactions";
+import { useParams } from "react-router-dom";
 const { Content } = Layout;
 
-const UsersPages = ({ visible, size }) => {
+const UsersUpdatePages = () => {
+  const { id } = useParams();
   const { users } = useSelector((state) => state.listUsers);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getUsers());
-  }, []);
+    dispatch(getIdUsers(id));
+  }, [id]);
 
   return (
-    <Layout title="user">
+    <Layout title="updateuser">
       <Content
         style={{
           margin: "26px 16px 0",
@@ -25,13 +27,12 @@ const UsersPages = ({ visible, size }) => {
         <div className="site-card-wrapper">
           <Row>
             <Col span={24}>
-              <Card title="Users Account">
-                <Row justify="end">
-                  <Col style={{ marginBottom: 15 }}>
-                    <DrawerUsersComponents visible={visible} size={size} />
+              <Card title="Edit Users">
+                <Row>
+                  <Col span={24}>
+                    <FormUpdateUsers data={users} id={id} />
                   </Col>
                 </Row>
-                <TableUsersComponents data={users} />
               </Card>
             </Col>
           </Row>
@@ -41,4 +42,4 @@ const UsersPages = ({ visible, size }) => {
   );
 };
 
-export default UsersPages;
+export default UsersUpdatePages;

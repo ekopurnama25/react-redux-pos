@@ -140,7 +140,6 @@ UserServices.CreateUsers = (req, res) => __awaiter(void 0, void 0, void 0, funct
 UserServices.DeleteUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     new RolesEntities_1.Roles();
     const id = req.params.id;
-    console.log(id);
     const delUsers = yield typeorm_1.getRepository(RolesEntities_1.Roles)
         .createQueryBuilder()
         .delete()
@@ -168,6 +167,79 @@ UserServices.DeleteUsers = (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.status(400).json({
             status: false,
             message: "Users Can't Be Found"
+        });
+    }
+});
+UserServices.getIdUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    new UserEntities_1.Users();
+    const id = req.params.id;
+    const getUsers = yield typeorm_1.getRepository(UserEntities_1.Users)
+        .createQueryBuilder('users')
+        .leftJoinAndSelect("users.roles", "roles")
+        .where('users.id_users = :id_users', { id_users: id })
+        .getOne();
+    if (getUsers) {
+        res.status(200).json({
+            status: true,
+            message: "success",
+            data: {
+                data: getUsers,
+            }
+        });
+    }
+    else {
+        res.status(400).json({
+            status: false,
+            message: "Users Can't Be Found"
+        });
+    }
+});
+UserServices.UpdateIdUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = new UserEntities_1.Users();
+    const roles = new RolesEntities_1.Roles();
+    const id = req.params.id;
+    user.username = req.body.username;
+    user.email = req.body.email;
+    roles.roles = req.body.roles;
+    roles.status = req.body.status;
+    if (user) {
+        const UpdateUsers = yield typeorm_1.getRepository(UserEntities_1.Users)
+            .createQueryBuilder()
+            .update(UserEntities_1.Users)
+            .set({
+            username: user.username,
+            email: user.email,
+        })
+            .where("id_users = :id_users", { id_users: id })
+            .execute();
+        if (UpdateUsers) {
+            yield typeorm_1.getRepository(RolesEntities_1.Roles)
+                .createQueryBuilder()
+                .update(RolesEntities_1.Roles)
+                .set({
+                roles: roles.roles,
+                status: roles.status,
+            })
+                .where("id_users = :id_users", { id_users: id })
+                .execute();
+        }
+        const getUsers = yield typeorm_1.getRepository(UserEntities_1.Users)
+            .createQueryBuilder('users')
+            .leftJoinAndSelect("users.roles", "roles")
+            .where('users.id_users = :id_users', { id_users: id })
+            .getOne();
+        res.status(200).json({
+            status: true,
+            message: "success",
+            data: {
+                data: getUsers,
+            }
+        });
+    }
+    else {
+        res.status(400).json({
+            status: false,
+            message: "Cannot File Update Failed"
         });
     }
 });

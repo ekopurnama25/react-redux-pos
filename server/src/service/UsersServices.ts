@@ -121,7 +121,6 @@ class UserServices {
     static DeleteUsers = async (req: Request, res: Response) => {
         new Roles();
         const id = req.params.id;
-        console.log(id) 
         const delUsers = await getRepository(Roles) 
         .createQueryBuilder()
         .delete()
@@ -149,6 +148,79 @@ class UserServices {
                 status: false,
                 message: "Users Can't Be Found"
             })
+        }
+    }
+
+    static getIdUsers = async (req: Request, res: Response) => {
+        new Users();
+        const id = req.params.id; 
+        const getUsers = await getRepository(Users)
+        .createQueryBuilder('users')
+        .leftJoinAndSelect("users.roles", "roles")
+        .where('users.id_users = :id_users', { id_users:  id })
+        .getOne();  
+       if(getUsers){
+            res.status(200).json({
+                status: true,
+                message: "success",
+                data: {
+                    data: getUsers,
+                }
+            })
+        }else{
+            res.status(400).json({
+                status: false,
+                message: "Users Can't Be Found"
+            })
+        }
+    }
+
+    static UpdateIdUsers = async (req: Request, res: Response) => {
+        const user = new Users();
+        const roles = new Roles();
+        const id = req.params.id;
+        user.username = req.body.username
+        user.email = req.body.email
+        roles.roles = req.body.roles
+        roles.status = req.body.status
+        if(user){
+            const UpdateUsers = await getRepository(Users)
+            .createQueryBuilder()
+            .update(Users)
+            .set({
+                username: user.username, 
+                email: user.email,
+            })
+            .where("id_users = :id_users", {id_users: id})
+            .execute();
+            if(UpdateUsers){
+                await getRepository(Roles)
+                .createQueryBuilder()
+                .update(Roles)
+                .set({
+                    roles: roles.roles,
+                    status: roles.status,
+                })
+                .where("id_users = :id_users", {id_users: id})
+                .execute();
+            }
+            const getUsers = await getRepository(Users)
+            .createQueryBuilder('users')
+            .leftJoinAndSelect("users.roles", "roles")
+            .where('users.id_users = :id_users', { id_users:  id })
+            .getOne();
+            res.status(200).json({
+                status: true,
+                message: "success",
+                data: {
+                    data: getUsers,
+                }
+            })
+        }else{
+            res.status(400).json({ 
+                status: false,
+                message: "Cannot File Update Failed"
+            });
         }
     }
 }

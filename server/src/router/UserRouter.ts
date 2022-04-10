@@ -10,4 +10,8 @@ router.post('/create/', UserServices.CreateUsers);
 
 router.delete("/users/:id", UserServices.DeleteUsers);
 
-export default router;
+router.get("/users/:id", UserServices.getIdUsers);
+
+router.put("/users/:id", UserServices.UpdateIdUsers);
+ 
+export default router; 

@@ -39,21 +39,10 @@ const SiderComponents = ({ collapsed, screenWidth, setBreakPointState }) => {
       </Row>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={["4"]}>
         <Menu.Item key="1" icon={<HomeOutlined />}>
-          <Link to="/">Dashboard</Link>
+          <Link to="/home">Dashboard</Link>
         </Menu.Item>
-        <SubMenu key="sub1" icon={<AppstoreOutlined />} title="Master Data">
-          <Menu.Item key="2">Goods</Menu.Item>
-          <Menu.Item key="3">Stock of Goods</Menu.Item>
-          <Menu.Item key="5">Price of Goods</Menu.Item>
-        </SubMenu>
-        <SubMenu key="sub2" icon={<SyncOutlined />} title="History">
-          <Menu.Item key="6">Sales History</Menu.Item>
-        </SubMenu>
-        <SubMenu key="sub3" icon={<FileDoneOutlined />} title="PDF Print">
-          <Menu.Item key="7">PDF Sales History</Menu.Item>
-        </SubMenu>
         <Menu.Item key="8" icon={<UserOutlined />}>
-          <Link to="users">Users Account</Link>
+          <Link to="/users">Users Account</Link>
         </Menu.Item>
       </Menu>
     </Sider>

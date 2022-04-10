@@ -1,6 +1,13 @@
-import React, { useState } from "react";
-import { Table, Button, Typography, Row, Col } from "antd";
-import { EditFilled, DeleteFilled } from "@ant-design/icons";
+import React from "react";
+import { Table, Button, Typography, Skeleton, Space, Modal } from "antd";
+import {
+  EditFilled,
+  DeleteFilled,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
+
+import { useNavigate } from "react-router-dom";
+
 import { getKeyData } from "../utils/getKeyData";
 import { deleteUsers } from "../store/actions/usersactions";
 
@@ -13,53 +20,61 @@ const TableUsersComponents = ({ data }) => {
     {
       title: "No",
       dataIndex: "key",
-      sorter: (a, b) => a.age - b.age,
     },
     {
       title: "Email",
       dataIndex: "email",
-      sorter: (a, b) => a.age - b.age,
+      sorter: (a, b) => a.email.localeCompare(b.email),
     },
     {
       title: "Username",
       dataIndex: "username",
-      sorter: (a, b) => a.age - b.age,
+      sorter: (a, b) => a.username.localeCompare(b.username),
     },
     {
       title: "Status",
-      //   dataIndex: ["roles", "status"],
       dataIndex: "roles",
-      sorter: (a, b) => a.age - b.age,
+      sorter: (a, b) => a.roles[0].status.localeCompare(b.roles[0].status),
       render: (roles) => {
-        //const StatusUsers = "Eneble";
-        //console.log({ id_users });
-        return <Text type="danger">{roles?.status}</Text>;
+        return roles?.map((role, idx) => (
+          <Text
+            key={idx}
+            type={
+              role?.status.toLowerCase() === "enable" ? "success" : "danger"
+            }
+          >
+            {role?.status}
+          </Text>
+        ));
       },
     },
     {
       title: "Action",
-      dataIndex: "roles",
-      render: (roles) => {
+      render: (user) => {
         return (
           <>
-            <Row style={{ margin: 20 }}>
-              <Col span={10}>
-                <Button type="primary" icon={<EditFilled />}>
-                  Update
-                </Button>
-              </Col>
-              <Col span={10}>
-                <Button
-                  type="danger"
-                  icon={<DeleteFilled />}
-                  onClick={(e) => {
-                    DeleteUsers(e, roles.id);
-                  }}
-                >
-                  Delete
-                </Button>
-              </Col>
-            </Row>
+            <Space>
+              <Button
+                shape="round"
+                type="primary"
+                onClick={() => {
+                  handleUpdate(user?.id_users);
+                }}
+                icon={<EditFilled />}
+              >
+                Update
+              </Button>
+              <Button
+                shape="round"
+                type="danger"
+                icon={<DeleteFilled />}
+                onClick={() => {
+                  handleDelete(user?.id_users);
+                }}
+              >
+                Delete
+              </Button>
+            </Space>
           </>
         );
       },
@@ -68,19 +83,30 @@ const TableUsersComponents = ({ data }) => {
 
   const dataModified = getKeyData(data);
   const dispatch = useDispatch();
-  const DeleteUsers = (e, id) => {
-    e.preventDefault();
-    try {
-      dispatch(deleteUsers(id));
-    } catch (err) {
-      console.log(err);
-    }
+
+  const navigate = useNavigate();
+
+  const handleUpdate = (id) => {
+    navigate(`/usersupdate/${id}`);
+  };
+
+  const handleDelete = (id) => {
+    Modal?.confirm({
+      title: <span>Apkah kamu yakin akan menghapus item ini?</span>,
+      icon: <ExclamationCircleOutlined />,
+      onOk() {
+        dispatch(deleteUsers(id));
+      },
+      onCancel() {},
+    });
   };
 
   function onChange(pagination, filters, sorter, extra) {
     console.log("params", pagination, filters, sorter, extra);
   }
-  return (
+  return !data ? (
+    <Skeleton />
+  ) : (
     <>
       <Table columns={columns} dataSource={dataModified} onChange={onChange} />
     </>

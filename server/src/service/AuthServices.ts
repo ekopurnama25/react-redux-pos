@@ -23,7 +23,7 @@ class AuthServices {
         const users = await getRepository(Users)
         .createQueryBuilder('users')
         .leftJoinAndSelect("users.roles", "roles")
-        .leftJoinAndSelect("users.token", "token")
+        .leftJoinAndSelect("users.token", "token") 
         .where('users.email = :email', { email: user.email  })
         .getOne();  
 

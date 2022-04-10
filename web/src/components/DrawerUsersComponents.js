@@ -100,7 +100,7 @@ const DrawerUsersComponents = () => {
             ]}
           >
             <Select placeholder="Select Status" allowClear>
-              <Option value="Eneble">Eneble</Option>
+              <Option value="Enable">Enable</Option>
               <Option value="Disable">Disable</Option>
             </Select>
           </Form.Item>

@@ -1,24 +1,49 @@
-import { get_users, add_users, delete_users } from "../constans/usersconstant";
+import {
+  ADD_USERS,
+  DELETE_USERS,
+  GET_USERS,
+  GET_ID_USERS,
+  UPDATE_USERS,
+} from "../constans/usersconstant";
 
 const defaultState = {
+  user: {},
   users: [],
   counter: 10,
 };
 
 const UsersReducers = (state = defaultState, action) => {
   switch (action.type) {
-    case get_users:
+    case GET_USERS:
       let newUSers = action.payload;
       return {
         ...state,
         users: newUSers,
       };
 
-    case add_users:
-      return { ...state, users: newUSers.users };
+    case ADD_USERS:
+      return {
+        ...state,
+        users: newUSers.users,
+      };
 
-    case delete_users:
-      return { ...state, users: newUSers.users };
+    case DELETE_USERS:
+      return {
+        ...state,
+        user: newUSers.users,
+      };
+
+    case GET_ID_USERS:
+      return {
+        ...state,
+        user: newUSers.users,
+      };
+
+    case UPDATE_USERS:
+      return {
+        ...state,
+        user: newUSers.users,
+      };
 
     default:
       return state;

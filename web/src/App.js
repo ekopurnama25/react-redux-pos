@@ -6,6 +6,8 @@ import { Layout } from "antd";
 import FooterComponents from "./components/FooterComponents";
 import HeaderComponents from "./components/HeaderComponents";
 import SiderComponents from "./components/SiderComponents";
+import UsersUpdatePages from "./pages/UsersUpdatePages";
+import Login from "./pages/Login";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -30,8 +32,10 @@ function App() {
 
   return (
     <>
-      <Layout>
-        <SiderComponents
+      <Routes>
+        <Route exact path="/login" element={<Login />} />
+
+        {/* <SiderComponents
           collapsed={collapsed}
           screenWidth={screenWidth}
           setBreakPointState={setBreakPointState}
@@ -40,16 +44,14 @@ function App() {
         <Layout
           className={`site-layout ${collapsed ? "collaps-margin" : "ml-200"}`}
         >
-          <HeaderComponents collapsed={collapsed} toggle={toggle} />
-          <Routes>
-            <Route exact path="/" element={<HomePages />} />
-            <Route exact path="users" element={<UsersPages />}>
-              <Route exact path=":userId" element={<UsersPages />} />
-            </Route>
-          </Routes>
-          <FooterComponents />
-        </Layout>
-      </Layout>
+          <HeaderComponents collapsed={collapsed} toggle={toggle} /> */}
+
+        <Route exact path="/" element={<HomePages />} />
+        <Route exact path="/users" element={<UsersPages />} />
+        <Route exact path="/usersupdate/:id" element={<UsersUpdatePages />} />
+        {/* </Layout>
+        <FooterComponents /> */}
+      </Routes>
     </>
   );
 }

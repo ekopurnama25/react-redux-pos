@@ -68,3 +68,150 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### POST USERS OR ADD USERS
+
+### [POST]http://localhost:5000/api/create/
+
+### REQUEST
+
+{
+"username": "ek01@121",
+"email": "pill12112@gmail.com",
+"password": "123",
+"roles": "Users",
+"status": "Enebled"
+}
+
+### RESPONE
+
+{
+"users": {
+"username": "ek01@121",
+"email": "pill12112@gmail.com",
+"password": "$argon2i$v=19$m=4096,t=3,p=1$unzt47LGfJRsFCsLIvXyDA$KK9CrXZBzIDopdr9jsDnySQgsBT79ph7N0TMUHG1CXg",
+"id_users": "fa97a053-41c2-4997-bed5-d6dd8db318c3",
+"create_users": "2022-02-27T05:44:08.939Z",
+"update_users": "2022-02-27T05:44:08.939Z"
+}
+}
+
+### GET USERS
+
+### [GET]http://localhost:5000/api/users/
+
+### RESPONSE
+
+{
+"status": true,
+"message": "success",
+"data": {
+"data": [
+{
+"id_users": "a9aeedb0-1825-4760-a691-81bc61cbe9f9",
+"username": "eko1",
+"email": "eko1@gmail.com",
+"password": "$argon2i$v=19$m=4096,t=3,p=1$SPsRIRp15erGdA7v5Prw7A$o/AAQSeyoop1XDKnqMEq6L9GuGWHttkWNTA2rO0Otnc",
+"create_users": "2022-02-06T05:54:06.019Z",
+"update_users": "2022-02-06T05:54:06.019Z",
+"roles": [
+{
+"id_roles": "a484d331-e674-4952-b02b-8a7e173e794a",
+"id_users": "a9aeedb0-1825-4760-a691-81bc61cbe9f9",
+"roles": "Users",
+"status": "Eneble",
+"create_roles": "2022-02-06T05:54:06.028Z",
+"update_roles": "2022-02-06T05:54:06.028Z"
+}
+]
+}
+]
+}
+}
+
+### GET ID USERS
+
+### [GET]http://localhost:5000/api/users/09a89ed8-b085-411c-b459-65e0aa551c80
+
+### RESPONSE
+
+{
+"status": true,
+"message": "success",
+"data": {
+"data": {
+"id_users": "09a89ed8-b085-411c-b459-65e0aa551c80",
+"username": "ek01@",
+"email": "pill1@gmail.com",
+"password": "$argon2i$v=19$m=4096,t=3,p=1$QIW8J8Yo4YiztbO0Sg8VIA$NP7DmzUwPLD4o/O2gvQmyuoqAvNE2nPkFzggceH6FTs",
+"create_users": "2022-02-09T15:00:02.571Z",
+"update_users": "2022-02-27T03:22:50.195Z",
+"roles": [
+{
+"id_roles": "b361c7ea-3e32-4e4c-bb29-9d6988cef7fd",
+"id_users": "09a89ed8-b085-411c-b459-65e0aa551c80",
+"roles": "Admin",
+"status": "Enebled",
+"create_roles": "2022-02-09T15:00:02.673Z",
+"update_roles": "2022-02-27T03:22:50.198Z"
+}
+]
+}
+}
+}
+
+### UPDATE USERS
+
+### [PUT]http://localhost:5000/api/users/09a89ed8-b085-411c-b459-65e0aa551c80
+
+### REQUEST
+
+{
+"username": "ek01@",
+"email": "pill1@gmail.com",
+"password": "123",
+"roles": "Admin",
+"status": "Enebled"
+}
+
+### RESPONSE
+
+{
+"status": true,
+"message": "success",
+"data": {
+"data": {
+"id_users": "09a89ed8-b085-411c-b459-65e0aa551c80",
+"username": "ek01@",
+"email": "pill1@gmail.com",
+"password": "$argon2i$v=19$m=4096,t=3,p=1$QIW8J8Yo4YiztbO0Sg8VIA$NP7DmzUwPLD4o/O2gvQmyuoqAvNE2nPkFzggceH6FTs",
+"create_users": "2022-02-09T15:00:02.571Z",
+"update_users": "2022-02-27T03:22:50.195Z",
+"roles": [
+{
+"id_roles": "b361c7ea-3e32-4e4c-bb29-9d6988cef7fd",
+"id_users": "09a89ed8-b085-411c-b459-65e0aa551c80",
+"roles": "Admin",
+"status": "Enebled",
+"create_roles": "2022-02-09T15:00:02.673Z",
+"update_roles": "2022-02-27T03:22:50.198Z"
+}
+]
+}
+}
+}
+
+### DELETE USERS
+
+### [DELETE]http://localhost:5000/api/users/09a89ed8-b085-411c-b459-65e0aa551c80
+
+### RESPONSE
+
+{
+"status": true,
+"message": "success",
+"data": {
+"message": "success Delete Users",
+"id": "09a89ed8-b085-411c-b459-65e0aa551c80"
+}
+}
