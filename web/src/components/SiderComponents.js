@@ -4,7 +4,6 @@ import { Layout, Menu, Avatar } from "antd";
 import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import { Row, Col } from "antd";
 import Logo from "../assert/eco.jpg";
-
 const SiderComponents = ({ collapsed, screenWidth, setBreakPointState }) => {
   const { Sider } = Layout;
 

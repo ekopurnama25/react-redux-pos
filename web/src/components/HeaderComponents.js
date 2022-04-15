@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Avatar, Col, Typography, Row } from "antd";
+import { Layout, Avatar, Col, Row, Typography } from "antd";
 import {
   UserOutlined,
   MenuUnfoldOutlined,
