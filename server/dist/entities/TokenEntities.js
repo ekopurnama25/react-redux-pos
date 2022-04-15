@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Token = void 0;
 const typeorm_1 = require("typeorm");
+const UserEntities_1 = require("./UserEntities");
 let Token = class Token {
 };
 __decorate([
@@ -37,6 +38,11 @@ __decorate([
     typeorm_1.UpdateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)", onUpdate: "CURRENT_TIMESTAMP(6)" }),
     __metadata("design:type", Date)
 ], Token.prototype, "update_token", void 0);
+__decorate([
+    typeorm_1.ManyToOne(() => UserEntities_1.Users, users => users.token),
+    typeorm_1.JoinColumn({ name: "id_users" }),
+    __metadata("design:type", UserEntities_1.Users)
+], Token.prototype, "users", void 0);
 Token = __decorate([
     typeorm_1.Entity()
 ], Token);

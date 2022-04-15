@@ -1,9 +1,10 @@
+import { Card, Col, Layout, Row } from "antd";
 import React, { useEffect } from "react";
-import { Layout, Row, Col, Card, Button, Space } from "antd";
-import FormUpdateUsers from "../components/FormUpdateUsers";
-import { useSelector, useDispatch } from "react-redux";
-import { getIdUsers } from "../store/actions/usersactions";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import FormUpdateUsers from "../components/FormUpdateUsers";
+import Layouts from "../components/Layouts";
+import { getIdUsers } from "../store/actions/usersactions";
 const { Content } = Layout;
 
 const UsersUpdatePages = () => {
@@ -13,10 +14,10 @@ const UsersUpdatePages = () => {
 
   useEffect(() => {
     dispatch(getIdUsers(id));
-  }, [id]);
+  }, [dispatch, id]);
 
   return (
-    <Layout title="updateuser">
+    <Layouts title="Update User">
       <Content
         style={{
           margin: "26px 16px 0",
@@ -38,7 +39,7 @@ const UsersUpdatePages = () => {
           </Row>
         </div>
       </Content>
-    </Layout>
+    </Layouts>
   );
 };
 

@@ -87,7 +87,7 @@ const TableUsersComponents = ({ data }) => {
   const navigate = useNavigate();
 
   const handleUpdate = (id) => {
-    navigate(`/usersupdate/${id}`);
+    navigate(`/users-update/${id}`);
   };
 
   const handleDelete = (id) => {

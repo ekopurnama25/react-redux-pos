@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Layout, Menu, Avatar } from "antd";
-import {
-  AppstoreOutlined,
-  HomeOutlined,
-  FileDoneOutlined,
-  SyncOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import { Row, Col } from "antd";
 import Logo from "../assert/eco.jpg";
+
 const SiderComponents = ({ collapsed, screenWidth, setBreakPointState }) => {
   const { Sider } = Layout;
-  const { SubMenu } = Menu;
 
   return (
     <Sider
@@ -39,7 +33,7 @@ const SiderComponents = ({ collapsed, screenWidth, setBreakPointState }) => {
       </Row>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={["4"]}>
         <Menu.Item key="1" icon={<HomeOutlined />}>
-          <Link to="/home">Dashboard</Link>
+          <Link to="/">Dashboard</Link>
         </Menu.Item>
         <Menu.Item key="8" icon={<UserOutlined />}>
           <Link to="/users">Users Account</Link>

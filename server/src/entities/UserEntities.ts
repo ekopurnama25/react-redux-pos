@@ -34,4 +34,6 @@ export class Users {
 
   @OneToMany(() => Roles, roles => roles.users) 
   roles: Roles[]; 
+  @OneToMany(() => Roles, token => token.users) 
+  token: Roles[];
 }

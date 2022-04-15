@@ -42,6 +42,10 @@ __decorate([
     typeorm_1.OneToMany(() => RolesEntities_1.Roles, roles => roles.users),
     __metadata("design:type", Array)
 ], Users.prototype, "roles", void 0);
+__decorate([
+    typeorm_1.OneToMany(() => RolesEntities_1.Roles, token => token.users),
+    __metadata("design:type", Array)
+], Users.prototype, "token", void 0);
 Users = __decorate([
     typeorm_1.Entity()
 ], Users);

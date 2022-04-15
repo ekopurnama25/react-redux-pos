@@ -1,12 +1,10 @@
 import React from "react";
-import { Layout, Avatar, Col } from "antd";
+import { Layout, Avatar, Col, Typography, Row } from "antd";
 import {
   UserOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from "@ant-design/icons";
-import { Row } from "antd";
-import { Typography } from "antd";
 
 const HeaderComponents = ({ collapsed, toggle }) => {
   const { Header } = Layout;

@@ -8,10 +8,6 @@ const FormUpdateUsers = ({ id, data }) => {
   const dispatch = useDispatch();
   const [formUpdateUser] = Form.useForm();
 
-  // const onFinishFailed = (errorInfo) => {
-  //   console.log("Failed:", errorInfo);
-  // };
-
   const EditUsers = (userData) => {
     try {
       dispatch(UpdateUsersID(id, userData));

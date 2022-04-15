@@ -4,17 +4,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUsers } from "../store/actions/usersactions";
 import TableUsersComponents from "../components/TableUsersComponent";
 import DrawerUsersComponents from "../components/DrawerUsersComponents";
+import Layouts from "../components/Layouts";
 const { Content } = Layout;
 
 const UsersPages = ({ visible, size }) => {
   const { users } = useSelector((state) => state.listUsers);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getUsers());
   }, []);
 
   return (
-    <Layout title="user">
+    <Layouts title="Users">
       <Content
         style={{
           margin: "26px 16px 0",
@@ -37,7 +39,7 @@ const UsersPages = ({ visible, size }) => {
           </Row>
         </div>
       </Content>
-    </Layout>
+    </Layouts>
   );
 };
 

@@ -26,9 +26,10 @@ class AuthServices {
         .leftJoinAndSelect("users.token", "token") 
         .where('users.email = :email', { email: user.email  })
         .getOne();  
+        //console.log(users)
 
         if(!user){
-            res.status(501).json({
+            res.status(501).json({ 
                 message: "Email and Password cannot be empty" 
             });
         }else if(!user.email){
